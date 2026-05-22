@@ -1126,23 +1126,128 @@ section.section { margin: 3rem 0; }
   }
   .toc a { padding: 0.55rem 0 0.55rem 0.6rem; min-height: 44px; }
 
-  /* --- Quick-pick table: hide horizontal scrollbar visual noise + nudge --- */
+  /* --- Quick-pick: transform table rows into stacked cards on mobile --- */
   .quick-pick {
     padding: 1rem;
     margin: 1.4rem 0;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible; /* no horizontal scrollbar — we're not scrolling anymore */
   }
-  .quick-pick h2 { font-size: 1.15rem; }
-  .quick-pick th, .quick-pick td { padding: 0.65rem 0.6rem; font-size: 0.85rem; }
-  /* Visual hint that the table scrolls */
-  .quick-pick::after {
-    content: '← scroll →';
+  .quick-pick h2 { font-size: 1.15rem; margin-bottom: 1rem; }
+
+  .quick-pick table,
+  .quick-pick thead,
+  .quick-pick tbody,
+  .quick-pick tr,
+  .quick-pick td {
     display: block;
+    width: 100%;
+  }
+  /* Hide the table header row on mobile — each cell shows its own label */
+  .quick-pick thead { display: none; }
+
+  /* Each row becomes a card */
+  .quick-pick tbody tr {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1rem 0.8rem;
+    margin-bottom: 0.9rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.3rem 0.9rem;
+    align-items: center;
+  }
+  .quick-pick tbody tr:last-child { margin-bottom: 0; }
+
+  /* Rank badge: circular, top-left of card */
+  .quick-pick tbody td.rank {
+    grid-column: 1;
+    grid-row: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--saffron-deep) 100%);
+    color: var(--bg);
+    font-weight: 800;
+    font-size: 1rem;
     text-align: center;
+    line-height: 36px;
+    padding: 0;
+    border: none;
+    flex-shrink: 0;
+  }
+  .quick-pick tbody td.rank::before { display: none; }
+
+  /* Casino name: top-right of card, larger */
+  .quick-pick tbody td.casino-name {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--cream);
+    padding: 0;
+    border: none;
+  }
+  .quick-pick tbody td.casino-name::before { display: none; }
+  .quick-pick tbody td.casino-name small {
+    display: block;
+    color: var(--saffron-soft);
+    font-weight: 500;
+    font-size: 0.78rem;
+    margin-top: 0.1rem;
+  }
+
+  /* Bonus, deposit, UPI, rating: stacked rows with labels */
+  .quick-pick tbody td.bonus,
+  .quick-pick tbody td[data-label="Min. Deposit"],
+  .quick-pick tbody td[data-label="UPI"],
+  .quick-pick tbody td.rating {
+    grid-column: 1 / -1;
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+  .quick-pick tbody td.bonus::before,
+  .quick-pick tbody td[data-label="Min. Deposit"]::before,
+  .quick-pick tbody td[data-label="UPI"]::before,
+  .quick-pick tbody td.rating::before {
+    content: attr(data-label);
     color: var(--muted);
     font-size: 0.72rem;
-    margin-top: 0.4rem;
-    letter-spacing: 0.1em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .quick-pick tbody td.bonus {
+    font-weight: 700;
+    color: var(--saffron-soft);
+  }
+  .quick-pick tbody td.rating {
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* CTA cell: full-width button at bottom of card */
+  .quick-pick tbody td.cta-cell {
+    grid-column: 1 / -1;
+    padding: 0.7rem 0 0;
+    border-bottom: none;
+  }
+  .quick-pick tbody td.cta-cell::before { display: none; }
+  .quick-pick tbody td.cta-cell .cta-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    min-height: 44px;
   }
 
   /* --- Casino cards --- */
