@@ -85,4 +85,46 @@
   document.querySelectorAll('[data-year]').forEach((el) => {
     el.textContent = String(new Date().getFullYear());
   });
+
+  /* ---- Mobile nav: inject hamburger toggle ----
+     We do not touch the HTML on 65 pages — instead, on small screens we
+     add a button into .header-inner that toggles .is-open on .main-nav.
+     CSS handles the rest (display + animation + accessibility cues). */
+  const headerInner = document.querySelector('.site-header .header-inner');
+  const mainNav = document.querySelector('.site-header .main-nav');
+  if (headerInner && mainNav && !headerInner.querySelector('.nav-toggle')) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'nav-toggle';
+    btn.setAttribute('aria-label', 'Toggle navigation');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', 'primary-nav');
+    btn.innerHTML = '<span class="bars" aria-hidden="true"><span></span></span>';
+    // Give the nav an id so aria-controls is valid
+    if (!mainNav.id) mainNav.id = 'primary-nav';
+    // Insert after the logo, before the nav
+    headerInner.insertBefore(btn, mainNav);
+
+    const setOpen = (open) => {
+      btn.setAttribute('aria-expanded', String(open));
+      mainNav.classList.toggle('is-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    btn.addEventListener('click', () => {
+      setOpen(mainNav.classList.contains('is-open') === false);
+    });
+    // Close on link click (so SPA-style nav feels natural)
+    mainNav.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => setOpen(false));
+    });
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mainNav.classList.contains('is-open')) setOpen(false);
+    });
+    // Reset state if the viewport grows past mobile
+    const mq = window.matchMedia('(min-width: 769px)');
+    const onChange = () => { if (mq.matches) setOpen(false); };
+    if (mq.addEventListener) mq.addEventListener('change', onChange);
+    else mq.addListener(onChange);
+  }
 })();
