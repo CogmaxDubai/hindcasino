@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting to Parimatch…</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <script>
+    (function () {
+      var base = 'https://pmaff.com/?serial=61291449&creative_id=1222';
+      var s = '';
+      try {
+        s = new URLSearchParams(window.location.search).get('s') || '';
+      } catch (e) {}
+      if (s) { s = s.replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 64); }
+      var dest = s ? base + '&sub_id=' + encodeURIComponent(s) : base;
+      window.location.replace(dest);
+    })();
+  </script>
+  <meta http-equiv="refresh" content="0;url=https://pmaff.com/?serial=61291449&creative_id=1222">
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0D1117; color: #F5F1E8; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+    .box { text-align: center; padding: 2rem; }
+    .spinner { width: 32px; height: 32px; border: 3px solid #30363D; border-top-color: #FF8C42; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    a { color: #FF8C42; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="spinner"></div>
+    <p>Redirecting to <strong>Parimatch</strong>…</p>
+    <p><a href="https://pmaff.com/?serial=61291449&creative_id=1222">Click here if not redirected automatically</a></p>
+    <p style="color: #8B949E; font-size: 0.85rem; margin-top: 2rem;">18+ · T&amp;Cs apply · Bet responsibly</p>
+  </div>
+</body>
+</html>

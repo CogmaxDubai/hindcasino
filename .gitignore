@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local server / build artifacts
+.cache/
+dist/
+build/
+
+# Environment files (in case any are added later)
+.env
+.env.local
+.env.*.local
+
+# Temporary fix scripts (one-time tools)
+fix-encoding.cjs
+update-dates.cjs
+inject-affiliate-links.cjs
