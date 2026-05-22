@@ -6,20 +6,49 @@
   <title>Redirecting to PuntIt…</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer-when-downgrade">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-01BL1E9ZJ7"></script>
   <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-01BL1E9ZJ7', { send_page_view: false, transport_type: 'beacon' });
+
     (function () {
-      // Note: Interstellar Affiliates URL ends with c= ready to receive the sub-id directly
+      // Interstellar Affiliates URL ends with c= ready to receive the sub-id directly
       var base = 'https://tracking.interstellaraffiliates.com/C.ashx?btag=a_21b_3c_&affid=13&siteid=21&adid=3&c=';
+      var casino = 'puntit';
       var s = '';
       try {
         s = new URLSearchParams(window.location.search).get('s') || '';
       } catch (e) {}
       if (s) { s = s.replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 64); }
+      var sourcePage = s || 'direct';
       var dest = base + encodeURIComponent(s);
-      window.location.replace(dest);
+
+      var redirected = false;
+      function doRedirect() {
+        if (redirected) return;
+        redirected = true;
+        window.location.replace(dest);
+      }
+
+      try {
+        gtag('event', 'affiliate_click', {
+          casino: casino,
+          source_page: sourcePage,
+          event_category: 'outbound_affiliate',
+          event_label: casino + '_' + sourcePage,
+          event_callback: doRedirect,
+          event_timeout: 800
+        });
+      } catch (e) { doRedirect(); }
+
+      setTimeout(doRedirect, 500);
     })();
   </script>
-  <meta http-equiv="refresh" content="0;url=https://tracking.interstellaraffiliates.com/C.ashx?btag=a_21b_3c_&affid=13&siteid=21&adid=3&c=">
+  <meta http-equiv="refresh" content="2;url=https://tracking.interstellaraffiliates.com/C.ashx?btag=a_21b_3c_&affid=13&siteid=21&adid=3&c=">
   <style>
     body { font-family: system-ui, sans-serif; background: #0D1117; color: #F5F1E8; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
     .box { text-align: center; padding: 2rem; }
