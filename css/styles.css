@@ -1198,11 +1198,9 @@ section.section { margin: 3rem 0; }
     margin-top: 0.1rem;
   }
 
-  /* Bonus, deposit, UPI, rating: stacked rows with labels */
-  .quick-pick tbody td.bonus,
-  .quick-pick tbody td[data-label="Min. Deposit"],
-  .quick-pick tbody td[data-label="UPI"],
-  .quick-pick tbody td.rating {
+  /* Every other cell becomes a labeled row in the card.
+     Generic fallback — picks up any <td> that isn't a rank/name/cta cell. */
+  .quick-pick tbody td:not(.rank):not(.casino-name):not(.cta-cell) {
     grid-column: 1 / -1;
     padding: 0.55rem 0;
     border-bottom: 1px dashed var(--border-soft);
@@ -1212,11 +1210,9 @@ section.section { margin: 3rem 0; }
     gap: 0.6rem;
     font-size: 0.88rem;
     color: var(--text);
+    text-align: left;
   }
-  .quick-pick tbody td.bonus::before,
-  .quick-pick tbody td[data-label="Min. Deposit"]::before,
-  .quick-pick tbody td[data-label="UPI"]::before,
-  .quick-pick tbody td.rating::before {
+  .quick-pick tbody td:not(.rank):not(.casino-name):not(.cta-cell)[data-label]::before {
     content: attr(data-label);
     color: var(--muted);
     font-size: 0.72rem;
@@ -1224,7 +1220,9 @@ section.section { margin: 3rem 0; }
     letter-spacing: 0.06em;
     text-transform: uppercase;
     flex-shrink: 0;
+    max-width: 55%;
   }
+  /* Highlight bonus + rating cells when present */
   .quick-pick tbody td.bonus {
     font-weight: 700;
     color: var(--saffron-soft);
@@ -1234,11 +1232,18 @@ section.section { margin: 3rem 0; }
     color: var(--gold);
   }
 
+  /* Hide trailing empty/decorative cells so they don't add empty rows */
+  .quick-pick tbody td:empty,
+  .quick-pick tbody td:not([data-label]):not(.rank):not(.casino-name):not(.cta-cell) {
+    display: none;
+  }
+
   /* CTA cell: full-width button at bottom of card */
   .quick-pick tbody td.cta-cell {
     grid-column: 1 / -1;
     padding: 0.7rem 0 0;
     border-bottom: none;
+    display: block;
   }
   .quick-pick tbody td.cta-cell::before { display: none; }
   .quick-pick tbody td.cta-cell .cta-btn {

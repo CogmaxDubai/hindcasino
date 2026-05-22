@@ -86,6 +86,25 @@
     el.textContent = String(new Date().getFullYear());
   });
 
+  /* ---- Auto-label .quick-pick / .facts-table cells for the mobile
+     card layout. CSS uses `content: attr(data-label)` on small screens,
+     so each <td> needs a data-label matching its column header.
+     This avoids editing every toplist + comparison HTML file. */
+  document.querySelectorAll('.quick-pick table, table.facts-table').forEach((table) => {
+    const headers = Array.from(table.querySelectorAll('thead th')).map((th) =>
+      (th.textContent || '').trim()
+    );
+    if (!headers.length) return;
+    table.querySelectorAll('tbody tr').forEach((row) => {
+      Array.from(row.children).forEach((cell, i) => {
+        if (cell.tagName !== 'TD') return;
+        if (cell.hasAttribute('data-label')) return; // respect explicit ones
+        const label = headers[i];
+        if (label) cell.setAttribute('data-label', label);
+      });
+    });
+  });
+
   /* ---- Mobile nav: inject hamburger toggle ----
      We do not touch the HTML on 65 pages — instead, on small screens we
      add a button into .header-inner that toggles .is-open on .main-nav.
