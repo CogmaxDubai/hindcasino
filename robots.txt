@@ -1,12 +1,12 @@
 # HindCasino.com — robots.txt
-# https://hindcasino.com/
+# https://www.hindcasino.com/
 
 User-agent: *
 Allow: /
 Disallow: /go/
 
 # Sitemap reference
-Sitemap: https://hindcasino.com/sitemap.xml
+Sitemap: https://www.hindcasino.com/sitemap.xml
 
 # Crawl politeness — no special restrictions
 Crawl-delay: 1
