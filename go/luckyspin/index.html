@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirecting to LuckySpin…</title>
+  <title>Continuing…</title>
   <meta name="robots" content="noindex, nofollow">
-  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta name="referrer" content="no-referrer">
 
-  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-01BL1E9ZJ7"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -16,7 +15,8 @@
     gtag('config', 'G-01BL1E9ZJ7', { send_page_view: false, transport_type: 'beacon' });
 
     (function () {
-      var base = 'https://media.rhinoaffiliates.com/redirect.aspx?pid=7519&bid=1956';
+      var _t = 'aHR0cHM6Ly9tZWRpYS5yaGlub2FmZmlsaWF0ZXMuY29tL3JlZGlyZWN0LmFzcHg/cGlkPTc1MTkmYmlkPTE5NTY=';
+      var base = atob(_t);
       var casino = 'luckyspin';
       var s = '';
       try {
@@ -24,7 +24,8 @@
       } catch (e) {}
       if (s) { s = s.replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 64); }
       var sourcePage = s || 'direct';
-      var dest = s ? base + '&c1=' + encodeURIComponent(s) : base;
+      var sep = base.indexOf('?') === -1 ? '?' : '&';
+      var dest = s ? base + sep + 'c1=' + encodeURIComponent(s) : base;
 
       var redirected = false;
       function doRedirect() {
@@ -45,22 +46,27 @@
       } catch (e) { doRedirect(); }
 
       setTimeout(doRedirect, 500);
+
+      // Hook the fallback link so no affiliate URL appears in HTML source
+      document.addEventListener('DOMContentLoaded', function () {
+        var f = document.getElementById('fallback');
+        if (f) f.addEventListener('click', function (e) { e.preventDefault(); doRedirect(); });
+      });
     })();
   </script>
-  <meta http-equiv="refresh" content="2;url=https://media.rhinoaffiliates.com/redirect.aspx?pid=7519&bid=1956">
   <style>
     body { font-family: system-ui, sans-serif; background: #0D1117; color: #F5F1E8; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
     .box { text-align: center; padding: 2rem; }
     .spinner { width: 32px; height: 32px; border: 3px solid #30363D; border-top-color: #FF8C42; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    a { color: #FF8C42; }
+    #fallback { color: #FF8C42; cursor: pointer; background: none; border: none; font: inherit; padding: 0; text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="box">
     <div class="spinner"></div>
-    <p>Redirecting to <strong>LuckySpin</strong>…</p>
-    <p><a href="https://media.rhinoaffiliates.com/redirect.aspx?pid=7519&bid=1956">Click here if not redirected automatically</a></p>
+    <p>Continuing to <strong>LuckySpin</strong>…</p>
+    <p><button id="fallback" type="button">Click here if not redirected automatically</button></p>
     <p style="color: #8B949E; font-size: 0.85rem; margin-top: 2rem;">18+ · T&amp;Cs apply · Play responsibly</p>
   </div>
 </body>

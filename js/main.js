@@ -86,6 +86,38 @@
     el.textContent = String(new Date().getFullYear());
   });
 
+  /* ---- Cloaked affiliate CTAs
+     Any element with data-go="<slug>" is treated as a click-to-affiliate
+     button. Click / Enter / Space navigates to /go/<slug>/?s=<source>.
+     Nothing about the affiliate URL is in the HTML source — search
+     engines and scrapers see only the slug + source-page hint. */
+  const goFor = (el) => {
+    const slug = el.getAttribute('data-go');
+    if (!slug) return null;
+    const src = el.getAttribute('data-src') || (document.body.getAttribute('data-page') || '');
+    const cleanSrc = src.replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 64);
+    return '/go/' + slug + '/' + (cleanSrc ? '?s=' + encodeURIComponent(cleanSrc) : '');
+  };
+  document.querySelectorAll('[data-go]').forEach((el) => {
+    el.setAttribute('role', 'button');
+    if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+    el.style.cursor = 'pointer';
+    const activate = (e) => {
+      const url = goFor(el);
+      if (!url) return;
+      e.preventDefault();
+      if (e.metaKey || e.ctrlKey || (e.button && e.button === 1)) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      } else {
+        window.location.href = url;
+      }
+    };
+    el.addEventListener('click', activate);
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') activate(e);
+    });
+  });
+
   /* ---- Auto-label .quick-pick / .facts-table cells for the mobile
      card layout. CSS uses `content: attr(data-label)` on small screens,
      so each <td> needs a data-label matching its column header.

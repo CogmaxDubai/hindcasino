@@ -15,16 +15,17 @@
     gtag('config', 'G-01BL1E9ZJ7', { send_page_view: false, transport_type: 'beacon' });
 
     (function () {
-      var _t = 'aHR0cHM6Ly90cmFja2luZy5pbnRlcnN0ZWxsYXJhZmZpbGlhdGVzLmNvbS9DLmFzaHg/YnRhZz1hXzIxYl8zY18mYWZmaWQ9MTMmc2l0ZWlkPTIxJmFkaWQ9MyZjPQ==';
+      var _t = 'aHR0cHM6Ly9tZWRpYS5yaGlub2FmZmlsaWF0ZXMuY29tL3JlZGlyZWN0LmFzcHg/cGlkPTc1MTkmYmlkPTE5NTY=';
       var base = atob(_t);
-      var casino = 'puntit';
+      var casino = 'mastispins';
       var s = '';
       try {
         s = new URLSearchParams(window.location.search).get('s') || '';
       } catch (e) {}
       if (s) { s = s.replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 64); }
       var sourcePage = s || 'direct';
-      var dest = base + encodeURIComponent(s);
+      var sep = base.indexOf('?') === -1 ? '?' : '&';
+      var dest = s ? base + sep + 'c1=' + encodeURIComponent(s) : base;
 
       var redirected = false;
       function doRedirect() {
@@ -64,7 +65,7 @@
 <body>
   <div class="box">
     <div class="spinner"></div>
-    <p>Continuing to <strong>PuntIt</strong>…</p>
+    <p>Continuing to <strong>Masti Spins</strong>…</p>
     <p><button id="fallback" type="button">Click here if not redirected automatically</button></p>
     <p style="color: #8B949E; font-size: 0.85rem; margin-top: 2rem;">18+ · T&amp;Cs apply · Play responsibly</p>
   </div>
