@@ -1,7 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "trailingSlash": true,
   "redirects": [
     { "source": "/:path*", "has": [{ "type": "host", "value": "hindcasino.com" }], "destination": "https://www.hindcasino.com/:path*", "permanent": true },
 
