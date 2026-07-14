@@ -75,6 +75,10 @@
     { "source": "/online-casinos/:slug*/",             "destination": "/casinos/", "permanent": true },
     { "source": "/casino-category/:slug*",             "destination": "/casinos/", "permanent": true },
     { "source": "/casino-category/:slug*/",            "destination": "/casinos/", "permanent": true },
+    { "source": "/casino/:slug*",                      "destination": "/casinos/", "permanent": true },
+    { "source": "/casino/:slug*/",                     "destination": "/casinos/", "permanent": true },
+    { "source": "/casinos__trashed/:slug*",            "destination": "/", "permanent": true },
+    { "source": "/casinos__trashed/:slug*/",           "destination": "/", "permanent": true },
 
     { "source": "/online-casino/free-spins",     "destination": "/bonuses/free-spins/",    "permanent": true },
     { "source": "/online-casino/free-spins/",    "destination": "/bonuses/free-spins/",    "permanent": true },
